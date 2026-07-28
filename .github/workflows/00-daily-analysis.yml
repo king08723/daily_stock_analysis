@@ -1,13 +1,16 @@
 name: 每日股票分析
 
 on:
-  # 定时触发 - 每天北京时间 18:00 (UTC 10:00)
-  schedule:
-    - cron: '0 10 * * 1-5'     # 周一到周五，UTC 10:00 = 北京时间 18:00
+#  schedule 定时自动运行已取消（按需单次手动触发）
   
   # 手动触发
   workflow_dispatch:
     inputs:
+      stock_symbol:
+        description: '分析指定股票代码（如 00700.HK, AAPL, 000001.SZ）'
+        required: false
+        default: ''
+        type: string
       mode:
         description: '运行模式'
         required: true
@@ -414,7 +417,9 @@ jobs:
           # 1. Repository/Environment secrets 或 Repository variables（STOCK_LIST_CONFIG）
           # 2. 同名 Environment variables 注入的 runner 环境变量（STOCK_LIST）
           # 3. 最小默认值
-          if [ -n "${STOCK_LIST_CONFIG:-}" ]; then
+          if [ -n "${{ github.event.inputs.stock_symbol }}" ]; then
+            export STOCK_LIST="${{ github.event.inputs.stock_symbol }}"
+          elif [ -n "${STOCK_LIST_CONFIG:-}" ]; then
             export STOCK_LIST="$STOCK_LIST_CONFIG"
           elif [ -z "${STOCK_LIST:-}" ]; then
             export STOCK_LIST="600519"
