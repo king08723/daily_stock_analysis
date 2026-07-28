@@ -550,3 +550,23 @@ jobs:
             echo "📜 最近日志（最后 30 行）:"
             tail -30 logs/stock_analysis_*.log 2>/dev/null || echo "无日志"
           fi
+
+      - name: 推送分析结果至 uniCloud 存储
+        if: always()
+        run: |
+          SYMBOL="${{ github.event.inputs.stock_symbol || '00700.HK' }}"
+          echo "=========================================="
+          echo "🌐 正在推送分析数据至 uniCloud 结果端点: $SYMBOL"
+          echo "=========================================="
+          if [ -f "result.json" ]; then
+            echo "找到 result.json，正在上报真实数据..."
+            curl -s -X POST https://f.nhm.net.cn/get-stock-result \
+                 -H "Content-Type: application/json" \
+                 -d @result.json || true
+          else
+            echo "发送默认就绪结构..."
+            curl -s -X POST https://f.nhm.net.cn/get-stock-result \
+                 -H "Content-Type: application/json" \
+                 -d "{\"symbol\":\"$SYMBOL\",\"candles\":[],\"cvd\":[],\"markers\":[]}" || true
+          fi
+          echo "✅ 数据推送流程完成！"
