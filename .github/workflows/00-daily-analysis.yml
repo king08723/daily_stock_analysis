@@ -581,10 +581,36 @@ jobs:
             echo "使用已有 result.json 上报"
           fi
 
-          RESP=$(curl -sS -X POST "$UNICLOUD_RESULT_URL" -H "Content-Type: application/json" -d @result.json)
-          echo "$RESP"
-          if ! echo "$RESP" | grep -Eq 'success"[[:space:]]*:[[:space:]]*true'; then
-            echo "❌ uniCloud 返回未成功"
-            exit 1
-          fi
-          echo "✅ uniCloud 报告推送成功"
+          python3 -c "
+          import json, os, ssl, time, urllib.request
+          url = os.environ['UNICLOUD_RESULT_URL']
+          payload = open('result.json', 'rb').read()
+          ctx = ssl.create_default_context()
+          last_err = None
+          for attempt in range(1, 6):
+              req = urllib.request.Request(url, data=payload, method='POST', headers={'Content-Type':'application/json','User-Agent':'daily-stock-analysis-unicloud-push/1.1','Origin':'https://nhm.net.cn'})
+              try:
+                  with urllib.request.urlopen(req, timeout=60, context=ctx) as resp:
+                      raw = resp.read().decode('utf-8', 'replace')
+                  print(raw[:2000])
+                  ok = False
+                  try:
+                      outer = json.loads(raw)
+                      body = outer.get('body', outer)
+                      if isinstance(body, str):
+                          body = json.loads(body)
+                      ok = isinstance(body, dict) and body.get('success') is True
+                  except Exception:
+                      ok = 'success\":true' in raw.replace(' ', '')
+                  if not ok:
+                      raise RuntimeError('uniCloud 返回未成功')
+                  print('✅ uniCloud 报告推送成功')
+                  raise SystemExit(0)
+              except SystemExit:
+                  raise
+              except Exception as e:
+                  last_err = e
+                  print(f'attempt {attempt}/5 failed: {type(e).__name__}: {e}')
+                  time.sleep(min(2 ** attempt, 20))
+          raise SystemExit(f'❌ uniCloud 推送失败: {last_err}')
+          "
