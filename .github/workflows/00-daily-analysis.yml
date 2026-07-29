@@ -564,45 +564,25 @@ jobs:
           echo "=========================================="
 
           if [ ! -f "result.json" ]; then
-            CANDIDATE=""
-            if [ -d reports ]; then
-              echo "reports 目录内容:"
-              ls -la reports/ || true
-              CODE_KEY="$(echo "$SYMBOL" | tr -d '.-')"
-              shopt -s nullglob
-              CANDS=(reports/*"${SYMBOL}"*.md reports/*"${CODE_KEY}"*.md reports/report_*.md reports/*.md)
-              shopt -u nullglob
-              if [ ${#CANDS[@]} -gt 0 ]; then
-                # 按修改时间取最新
-                CANDIDATE=$(ls -1t "${CANDS[@]}" 2>/dev/null | head -1 || true)
-              fi
-            fi
-
-            if [ -z "${CANDIDATE}" ] || [ ! -f "${CANDIDATE}" ]; then
+            echo "reports 目录内容:"
+            ls -la reports/ 2>/dev/null || true
+            CODE_KEY="$(echo "$SYMBOL" | tr -d '.-')"
+            shopt -s nullglob
+            CANDS=(reports/*"${SYMBOL}"*.md reports/*"${CODE_KEY}"*.md reports/report_*.md reports/*.md)
+            shopt -u nullglob
+            if [ ${#CANDS[@]} -eq 0 ]; then
               echo "❌ 未找到 Markdown 报告，拒绝推送空结果"
               exit 1
             fi
-
+            CANDIDATE="$(ls -1t "${CANDS[@]}" | head -1)"
             echo "使用报告文件: $CANDIDATE"
-            python3 -c '
-import json, pathlib, sys
-symbol, path = sys.argv[1], sys.argv[2]
-report = pathlib.Path(path).read_text(encoding="utf-8")
-if not report.strip():
-    raise SystemExit("报告文件为空")
-payload = {"symbol": symbol, "report": report, "candles": [], "cvd": [], "markers": []}
-pathlib.Path("result.json").write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
-print(f"result.json ready: report_len={len(report)}")
-' "$SYMBOL" "$CANDIDATE"
+            python3 -c "import json,pathlib,sys; symbol,path=sys.argv[1],sys.argv[2]; report=pathlib.Path(path).read_text(encoding='utf-8'); assert report.strip(), '报告文件为空'; pathlib.Path('result.json').write_text(json.dumps({'symbol':symbol,'report':report,'candles':[],'cvd':[],'markers':[]},ensure_ascii=False),encoding='utf-8'); print('result.json ready: report_len=%d'%len(report))" "$SYMBOL" "$CANDIDATE"
           else
             echo "使用已有 result.json 上报"
           fi
 
-          RESP=$(curl -sS -X POST "$UNICLOUD_RESULT_URL" \
-            -H "Content-Type: application/json" \
-            -d @result.json)
+          RESP=$(curl -sS -X POST "$UNICLOUD_RESULT_URL" -H "Content-Type: application/json" -d @result.json)
           echo "$RESP"
-          # uniCloud URL化响应可能把业务 JSON 包在 body 字符串里（含转义引号）
           if ! echo "$RESP" | grep -Eq 'success"[[:space:]]*:[[:space:]]*true'; then
             echo "❌ uniCloud 返回未成功"
             exit 1
