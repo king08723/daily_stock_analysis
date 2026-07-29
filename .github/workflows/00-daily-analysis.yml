@@ -553,20 +553,61 @@ jobs:
 
       - name: 推送分析结果至 uniCloud 存储
         if: always()
+        env:
+          SYMBOL: ${{ github.event.inputs.stock_symbol || '00700.HK' }}
+          UNICLOUD_RESULT_URL: https://f.nhm.net.cn/get-stock-result
         run: |
-          SYMBOL="${{ github.event.inputs.stock_symbol || '00700.HK' }}"
+          set -euo pipefail
+          SYMBOL="$(echo "$SYMBOL" | tr '[:lower:]' '[:upper:]')"
           echo "=========================================="
-          echo "🌐 正在推送分析数据至 uniCloud 结果端点: $SYMBOL"
+          echo "🌐 推送分析报告至 uniCloud: $SYMBOL"
           echo "=========================================="
+
           if [ -f "result.json" ]; then
-            echo "找到 result.json，正在上报真实数据..."
-            curl -s -X POST https://f.nhm.net.cn/get-stock-result \
-                 -H "Content-Type: application/json" \
-                 -d @result.json || true
+            echo "使用已有 result.json 上报"
           else
-            echo "发送默认就绪结构..."
-            curl -s -X POST https://f.nhm.net.cn/get-stock-result \
-                 -H "Content-Type: application/json" \
-                 -d "{\"symbol\":\"$SYMBOL\",\"candles\":[],\"cvd\":[],\"markers\":[]}" || true
+            CANDIDATE=""
+            if [ -d reports ]; then
+              CODE_KEY="$(echo "$SYMBOL" | tr -d '.-')"
+              CANDIDATE=$(ls -1t reports/*"${SYMBOL}"*.md reports/*"${CODE_KEY}"*.md 2>/dev/null | head -1 || true)
+              if [ -z "$CANDIDATE" ]; then
+                CANDIDATE=$(ls -1t reports/report_*.md 2>/dev/null | head -1 || true)
+              fi
+              if [ -z "$CANDIDATE" ]; then
+                CANDIDATE=$(ls -1t reports/*.md 2>/dev/null | head -1 || true)
+              fi
+            fi
+
+            if [ -z "${CANDIDATE}" ] || [ ! -f "${CANDIDATE}" ]; then
+              echo "❌ 未找到 Markdown 报告，拒绝推送空结果"
+              ls -la reports/ 2>/dev/null || true
+              exit 1
+            fi
+
+            echo "使用报告文件: $CANDIDATE"
+            python3 - "$SYMBOL" "$CANDIDATE" <<'PY'
+          import json, pathlib, sys
+          symbol, path = sys.argv[1], sys.argv[2]
+          report = pathlib.Path(path).read_text(encoding="utf-8")
+          if not report.strip():
+              raise SystemExit("报告文件为空")
+          payload = {
+              "symbol": symbol,
+              "report": report,
+              "candles": [],
+              "cvd": [],
+              "markers": [],
+          }
+          pathlib.Path("result.json").write_text(
+              json.dumps(payload, ensure_ascii=False), encoding="utf-8"
+          )
+          print(f"result.json ready: report_len={len(report)}")
+          PY
           fi
-          echo "✅ 数据推送流程完成！"
+
+          RESP=$(curl -sS -X POST "$UNICLOUD_RESULT_URL" \
+            -H "Content-Type: application/json" \
+            -d @result.json)
+          echo "$RESP"
+          echo "$RESP" | grep -q '"success":true'
+          echo "✅ uniCloud 报告推送成功"
