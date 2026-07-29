@@ -34,6 +34,8 @@ concurrency:
 jobs:
   analyze:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     # 兼容误将 STOCK_LIST 配到同名 Environment variables 的场景；
     # 推荐位置仍是 Settings -> Secrets and variables -> Actions -> Repository variables。
     environment: STOCK_LIST
@@ -556,6 +558,8 @@ jobs:
         env:
           SYMBOL: ${{ github.event.inputs.stock_symbol || '00700.HK' }}
           UNICLOUD_RESULT_URL: https://f.nhm.net.cn/get-stock-result
+          RESULT_BRANCH: analysis-results
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
           python3 scripts/push_unicloud_result.py
