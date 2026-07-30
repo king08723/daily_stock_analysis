@@ -1,12 +1,12 @@
 {
-  "jobId": "job_ms71b0x7_9f39ed83b4aa",
+  "jobId": "job_ms7gu2ba_faec0a382e5b",
   "symbol": "09988.HK",
-  "generatedAt": 1785387311096,
-  "runId": "30514913108",
+  "generatedAt": 1785413452584,
+  "runId": "30541031692",
   "status": "succeeded",
   "paths": {
-    "report": "jobs/job_ms71b0x7_9f39ed83b4aa/report.md",
-    "marketReview": "jobs/job_ms71b0x7_9f39ed83b4aa/market_review.md",
-    "manifest": "jobs/job_ms71b0x7_9f39ed83b4aa/manifest.json"
+    "report": "jobs/job_ms7gu2ba_faec0a382e5b/report.md",
+    "marketReview": "jobs/job_ms7gu2ba_faec0a382e5b/market_review.md",
+    "manifest": "jobs/job_ms7gu2ba_faec0a382e5b/manifest.json"
   }
 }
