@@ -1,0 +1,13 @@
+{
+  "jobId": "job_ms71b0x7_9f39ed83b4aa",
+  "symbol": "09988.HK",
+  "status": "succeeded",
+  "runId": "30514913108",
+  "generatedAt": 1785387311096,
+  "finishedAt": 1785387311096,
+  "reportSha": "3318211ae074bfb4",
+  "marketReviewSha": "6cfc2bb458ad29e0",
+  "reportLength": 2654,
+  "marketReviewLength": 1745,
+  "error": ""
+}
