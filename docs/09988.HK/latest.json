@@ -1,0 +1,12 @@
+{
+  "jobId": "job_ms71b0x7_9f39ed83b4aa",
+  "symbol": "09988.HK",
+  "generatedAt": 1785387311096,
+  "runId": "30514913108",
+  "status": "succeeded",
+  "paths": {
+    "report": "jobs/job_ms71b0x7_9f39ed83b4aa/report.md",
+    "marketReview": "jobs/job_ms71b0x7_9f39ed83b4aa/market_review.md",
+    "manifest": "jobs/job_ms71b0x7_9f39ed83b4aa/manifest.json"
+  }
+}
