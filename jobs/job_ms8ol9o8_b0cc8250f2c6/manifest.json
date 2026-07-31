@@ -1,0 +1,13 @@
+{
+  "jobId": "job_ms8ol9o8_b0cc8250f2c6",
+  "symbol": "AAPL",
+  "status": "succeeded",
+  "runId": "30616463184",
+  "generatedAt": 1785486720426,
+  "finishedAt": 1785486720426,
+  "reportSha": "86b5012492468061",
+  "marketReviewSha": "",
+  "reportLength": 3095,
+  "marketReviewLength": 0,
+  "error": ""
+}
