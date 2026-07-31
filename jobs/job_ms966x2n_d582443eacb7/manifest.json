@@ -1,0 +1,13 @@
+{
+  "jobId": "job_ms966x2n_d582443eacb7",
+  "symbol": "00285.HK",
+  "status": "failed",
+  "runId": "30648163793",
+  "generatedAt": 1785516209987,
+  "finishedAt": 1785516209987,
+  "reportSha": "",
+  "marketReviewSha": "",
+  "reportLength": 0,
+  "marketReviewLength": 0,
+  "error": "reports 下无可用 Markdown"
+}
