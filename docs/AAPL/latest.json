@@ -1,0 +1,12 @@
+{
+  "jobId": "job_ms8ol9o8_b0cc8250f2c6",
+  "symbol": "AAPL",
+  "generatedAt": 1785486720426,
+  "runId": "30616463184",
+  "status": "succeeded",
+  "paths": {
+    "report": "jobs/job_ms8ol9o8_b0cc8250f2c6/report.md",
+    "marketReview": "jobs/job_ms8ol9o8_b0cc8250f2c6/market_review.md",
+    "manifest": "jobs/job_ms8ol9o8_b0cc8250f2c6/manifest.json"
+  }
+}
