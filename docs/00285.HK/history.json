@@ -1,0 +1,17 @@
+{
+  "symbol": "00285.HK",
+  "updatedAt": 1785561201125,
+  "jobs": [
+    {
+      "jobId": "job_ms9wwav8_c709e9c1bedb",
+      "symbol": "00285.HK",
+      "generatedAt": 1785561195989,
+      "runId": "30685299248",
+      "status": "succeeded",
+      "rating": "观望",
+      "riskLevel": "中",
+      "trend": "震荡",
+      "confidence": 0.55
+    }
+  ]
+}
