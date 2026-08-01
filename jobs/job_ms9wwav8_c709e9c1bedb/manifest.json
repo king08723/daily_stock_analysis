@@ -1,0 +1,20 @@
+{
+  "jobId": "job_ms9wwav8_c709e9c1bedb",
+  "symbol": "00285.HK",
+  "status": "running",
+  "phase": "checkout",
+  "phaseMessage": "正在检出代码与准备仓库…（通常约 15–30 秒）",
+  "runId": "30685299248",
+  "updatedAt": 1785560982197,
+  "generatedAt": 0,
+  "finishedAt": 0,
+  "reportSha": "",
+  "marketReviewSha": "",
+  "reportLength": 0,
+  "marketReviewLength": 0,
+  "metricsSha": "",
+  "metricsLength": 0,
+  "hasMetrics": false,
+  "error": "",
+  "errorCode": ""
+}
