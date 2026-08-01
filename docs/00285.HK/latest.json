@@ -1,0 +1,12 @@
+{
+  "jobId": "job_ms9uhir9_27b2a897c926",
+  "symbol": "00285.HK",
+  "generatedAt": 1785557155727,
+  "runId": "30683131018",
+  "status": "succeeded",
+  "paths": {
+    "report": "jobs/job_ms9uhir9_27b2a897c926/report.md",
+    "marketReview": "jobs/job_ms9uhir9_27b2a897c926/market_review.md",
+    "manifest": "jobs/job_ms9uhir9_27b2a897c926/manifest.json"
+  }
+}
