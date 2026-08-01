@@ -1,0 +1,20 @@
+{
+  "jobId": "job_ms9yr0qd_ae3b3e844996",
+  "symbol": "02313.HK",
+  "status": "running",
+  "phase": "setup",
+  "phaseMessage": "正在初始化分析环境与依赖…（通常约 30–60 秒）",
+  "runId": "30686936599",
+  "updatedAt": 1785564161036,
+  "generatedAt": 0,
+  "finishedAt": 0,
+  "reportSha": "",
+  "marketReviewSha": "",
+  "reportLength": 0,
+  "marketReviewLength": 0,
+  "metricsSha": "",
+  "metricsLength": 0,
+  "hasMetrics": false,
+  "error": "",
+  "errorCode": ""
+}
