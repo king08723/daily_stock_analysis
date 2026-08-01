@@ -1,0 +1,18 @@
+{
+  "rating": "观望",
+  "confidence": 0.55,
+  "trend": "震荡",
+  "supportLevels": [
+    2026.0
+  ],
+  "resistanceLevels": [],
+  "riskLevel": "中",
+  "dataAsOf": 1785561195989,
+  "modelVersion": "report-heuristic-v1",
+  "realtimeEnabled": false,
+  "degradedFeatures": [
+    "confidence-default"
+  ],
+  "symbol": "00285.HK",
+  "source": "report-heuristic"
+}
