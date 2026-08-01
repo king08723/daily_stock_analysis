@@ -1,0 +1,17 @@
+{
+  "symbol": "02313.HK",
+  "updatedAt": 1785564327293,
+  "jobs": [
+    {
+      "jobId": "job_ms9yr0qd_ae3b3e844996",
+      "symbol": "02313.HK",
+      "generatedAt": 1785564321331,
+      "runId": "30686936599",
+      "status": "succeeded",
+      "rating": "买入",
+      "riskLevel": "中",
+      "trend": "上行",
+      "confidence": 0.55
+    }
+  ]
+}
