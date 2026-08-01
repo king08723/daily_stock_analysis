@@ -1,12 +1,16 @@
 {
-  "jobId": "job_ms9uhir9_27b2a897c926",
+  "jobId": "job_ms9wwav8_c709e9c1bedb",
   "symbol": "00285.HK",
-  "generatedAt": 1785557155727,
-  "runId": "30683131018",
+  "generatedAt": 1785561195989,
+  "runId": "30685299248",
   "status": "succeeded",
+  "phase": "succeeded",
+  "rating": "观望",
+  "riskLevel": "中",
   "paths": {
-    "report": "jobs/job_ms9uhir9_27b2a897c926/report.md",
-    "marketReview": "jobs/job_ms9uhir9_27b2a897c926/market_review.md",
-    "manifest": "jobs/job_ms9uhir9_27b2a897c926/manifest.json"
+    "report": "jobs/job_ms9wwav8_c709e9c1bedb/report.md",
+    "marketReview": "jobs/job_ms9wwav8_c709e9c1bedb/market_review.md",
+    "manifest": "jobs/job_ms9wwav8_c709e9c1bedb/manifest.json",
+    "metrics": "jobs/job_ms9wwav8_c709e9c1bedb/metrics.json"
   }
 }
