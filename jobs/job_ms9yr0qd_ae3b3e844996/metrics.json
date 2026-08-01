@@ -1,0 +1,18 @@
+{
+  "rating": "买入",
+  "confidence": 0.55,
+  "trend": "上行",
+  "supportLevels": [
+    43.62
+  ],
+  "resistanceLevels": [
+    45.0
+  ],
+  "riskLevel": "中",
+  "dataAsOf": 1785564321331,
+  "modelVersion": "report-heuristic-v1",
+  "realtimeEnabled": false,
+  "degradedFeatures": [],
+  "symbol": "02313.HK",
+  "source": "report-heuristic"
+}
